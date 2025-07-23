@@ -1,53 +1,48 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
 { pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
+  # Set the Nix channel for package versions
+  channel = "stable-24.05";
+
+  # Define the packages to install in the environment
   packages = [
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
+    pkgs.nodejs_20 # For the Node.js backend
+    pkgs.python3 # For the Python crawling logic
+    pkgs.python3Packages.requests # For making HTTP requests in Python
+    pkgs.python3Packages.beautifulsoup4 # For parsing HTML in Python
+    pkgs.python3Packages.google-cloud-firestore # For interacting with Firestore from Python (optional for now)
   ];
-  # Sets environment variables in the workspace
-  env = {};
+
+  # Configure workspace settings
   idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
+    # Define VS Code extensions to install
     extensions = [
-      # "vscodevim.vim"
+      "dbaeumer.vscode-eslint" # Linter for JavaScript
+      "ms-python.python" # Python extension
     ];
-    # Enable previews
-    previews = {
-      enable = true;
-      previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
-      };
-    };
-    # Workspace lifecycle hooks
+
+    # Define workspace lifecycle hooks
     workspace = {
-      # Runs when a workspace is first created
+      # Commands to run when the workspace is first created
       onCreate = {
-        # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = [ ".idx/dev.nix" "README.md" ];
+        # Install Node.js dependencies in the backend directory
+        "npm-install-backend" = "npm install --prefix backend";
       };
-      # Runs when the workspace is (re)started
+      # Commands to run every time the workspace is (re)started
       onStart = {
-        # Example: start a background task to watch and re-build backend code
-        # watch-backend = "npm run watch-backend";
+        # Start the backend server
+        "start-backend" = "npm start --prefix backend";
       };
     };
+
+    # Configure web previews (optional, but useful for the frontend)
+    # You might configure this later once you have a frontend server
+    # previews = {
+    #   enable = true;
+    #   previews = {
+    #     web = {
+    #       command = ["npm" "start" "--prefix" "frontend" "--" "--port" "$PORT"];
+    #       manager = "web";
+    #     };
+    #   };
+    # };
   };
 }

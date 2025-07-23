@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Tracker</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        #addItemForm {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #addItemForm label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        #addItemForm input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #addItemForm button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #addItemForm button:hover {
+            background-color: #0056b3;
+        }
+        #itemsList {
+            margin-top: 20px;
+        }
+        .item {
+            border: 1px solid #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .item h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .item button {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .item button:hover {
+            background-color: #218838;
+        }
+        .history {
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .history-entry {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Price Tracker</h1>
+
+    <div id="addItemForm">
+        <h2>Add New Item</h2>
+        <div>
+            <label for="url">URL:</label>
+            <input type="text" id="url" placeholder="Enter item URL">
+        </div>
+        <div>
+            <label for="selector">Price CSS Selector:</label>
+            <input type="text" id="selector" placeholder="Enter CSS selector for the price">
+        </div>
+        <button id="testCrawlButton">Test Crawl</button>
+        <button id="addItemButton" disabled>Add Item</button>
+        <div id="testCrawlResult" style="margin-top: 10px;"></div>
+    </div>
+
+    <div id="itemsList">
+        <h2>Tracked Items</h2>
+        <!-- Items will be loaded here by JavaScript -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
